@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+<!-- Global site tag (gtag.js) - Baidu Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?44bb9f918a0a19214f9bd9b57c38fcfd";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Baidu Analytics -->
+
+  
+
+  
+  <title>弹幕评论的主题与情感分类 | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="视频讲述了一位自幼因车祸双腿截肢的B站用户少轩，希望借助特效技术实现“奔跑”愿望的故事。影视飓风团队历经九个月，通过2D平面合成与3D扫描等技术方案，最终成功为其制作出奔跑的影像，还通过音乐创作与全景相机资助等方式，助力少轩拓展作为创作者的可能性，并借此呼吁社会共同关注和改善中国残疾人设施的现状。 视频的主题词为：特效制作、技术挑战、励志故事、身残志坚、社会公益、视频制作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="弹幕评论的主题与情感分类">
+<meta property="og:url" content="https://0x0131a431.github.io/2025/09/02/project/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="视频讲述了一位自幼因车祸双腿截肢的B站用户少轩，希望借助特效技术实现“奔跑”愿望的故事。影视飓风团队历经九个月，通过2D平面合成与3D扫描等技术方案，最终成功为其制作出奔跑的影像，还通过音乐创作与全景相机资助等方式，助力少轩拓展作为创作者的可能性，并借此呼吁社会共同关注和改善中国残疾人设施的现状。 视频的主题词为：特效制作、技术挑战、励志故事、身残志坚、社会公益、视频制作。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://0x0131a431.github.io/2025/09/02/project/genderPie.png">
+<meta property="og:image" content="https://0x0131a431.github.io/2025/09/02/project/bLevelBar.png">
+<meta property="og:image" content="https://0x0131a431.github.io/2025/09/02/project/wordCloud.png">
+<meta property="og:image" content="https://0x0131a431.github.io/2025/09/02/project/pyLDAvis.png">
+<meta property="og:image" content="https://0x0131a431.github.io/2025/09/02/project/danmakuPie.png">
+<meta property="og:image" content="https://0x0131a431.github.io/2025/09/02/project/danmakuLine.png">
+<meta property="article:published_time" content="2025-09-02T09:21:12.000Z">
+<meta property="article:modified_time" content="2025-09-03T17:22:10.534Z">
+<meta property="article:author" content="_0xFFFF">
+<meta property="article:tag" content="Pandas">
+<meta property="article:tag" content="Matplotlib">
+<meta property="article:tag" content="LDA">
+<meta property="article:tag" content="RoBERTa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0x0131a431.github.io/2025/09/02/project/genderPie.png">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/images/bg.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/images/head.jpeg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">_0xFFFF </div>
+      <div class="dot"></div>
+      <div class="subtitle">“兴趣使然” </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/0x0131A431" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/Data-Analysis/">
+                Data Analysis
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LDA/" rel="tag">LDA</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Matplotlib/" rel="tag">Matplotlib</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/RoBERTa/" rel="tag">RoBERTa</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Recent Posts</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2025/09/02/project/" title="弹幕评论的主题与情感分类" >
+            <div class="recent-link-text">
+              弹幕评论的主题与情感分类
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-project" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        弹幕评论的主题与情感分类
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-09-02T09:21:12.000Z" itemprop="datePublished">2025-09-02</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/Data-Analysis/">Data Analysis</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            15k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDA/" rel="tag">LDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matplotlib/" rel="tag">Matplotlib</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RoBERTa/" rel="tag">RoBERTa</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          
+<div style="position: relative; width: 100%; padding-top: 56.25%; overflow: hidden;">
+    <iframe src="//player.bilibili.com/player.html?bvid=BV1ED4y1Y7dc&page=1&autoplay=0&muted=1" allowfullscreen="true" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+</div>
+
+
+<p>视频讲述了一位自幼因车祸双腿截肢的B站用户少轩，希望借助特效技术实现“奔跑”愿望的故事。影视飓风团队历经九个月，通过2D平面合成与3D扫描等技术方案，最终成功为其制作出奔跑的影像，还通过音乐创作与全景相机资助等方式，助力少轩拓展作为创作者的可能性，并借此呼吁社会共同关注和改善中国残疾人设施的现状。</p>
+<p>视频的主题词为：特效制作、技术挑战、励志故事、身残志坚、社会公益、视频制作。</p>
+<!-- toc -->
+
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96"><em>数据获取</em></a></li>
+<li><a href="#%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><em>评论数据分析</em></a><ul>
+<li><a href="#%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%BB%9F%E8%AE%A1"><em>描述性统计</em></a><ul>
+<li><a href="#%E6%80%A7%E5%88%AB%E5%88%86%E5%B8%83"><em>性别分布</em></a></li>
+<li><a href="#ip-%E5%B1%9E%E5%9C%B0%E5%88%86%E5%B8%83"><em>IP 属地分布</em></a></li>
+<li><a href="#b-%E7%AB%99%E7%AD%89%E7%BA%A7%E5%88%86%E5%B8%83"><em>B 站等级分布</em></a></li>
+</ul>
+</li>
+<li><a href="#%E8%AF%84%E8%AE%BA%E8%AF%8D%E4%BA%91"><em>评论词云</em></a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E4%B8%BB%E9%A2%98%E6%A8%A1%E5%9E%8Blda"><em>应用主题模型：LDA</em></a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%B9%E5%B9%95%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><em>弹幕数据分析</em></a><ul>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E5%88%86%E5%B8%83"><em>类型分布</em></a></li>
+<li><a href="#%E5%BC%B9%E5%B9%95%E6%97%B6%E9%97%B4%E7%BA%BF"><em>弹幕时间线</em></a></li>
+<li><a href="#%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90"><em>情感分析</em></a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h2><span id="数据获取"><em>数据获取</em></span></h2><p>这个视频的评论数据和弹幕数据，可通过 <a target="_blank" rel="noopener" href="https://nemo2011.github.io/bilibili-api">bilibili-api</a> 获取，保存 cookie 到 .yaml 配置文件。</p>
+<p>评论获取：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    comments = []</span><br><span class="line">    page = <span class="number">1</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        c = <span class="keyword">await</span> comment.get_comments(<span class="number">733285870</span>, comment.CommentResourceType.VIDEO, page)</span><br><span class="line">        replies = c[<span class="string">&#x27;replies&#x27;</span>]</span><br><span class="line">        <span class="keyword">if</span> replies <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        comments.extend(replies)</span><br><span class="line">        count += c[<span class="string">&#x27;page&#x27;</span>][<span class="string">&#x27;size&#x27;</span>]</span><br><span class="line">        page += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count &gt;= c[<span class="string">&#x27;page&#x27;</span>][<span class="string">&#x27;count&#x27;</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> cmt <span class="keyword">in</span> comments:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;cmt[<span class="string">&#x27;member&#x27;</span>][<span class="string">&#x27;uname&#x27;</span>]&#125;</span>: <span class="subst">&#123;cmt[<span class="string">&#x27;content&#x27;</span>][<span class="string">&#x27;message&#x27;</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;\n\n共有 <span class="subst">&#123;count&#125;</span> 条评论（不含子评论）&quot;</span>)</span><br><span class="line"></span><br><span class="line">sync(main())</span><br></pre></td></tr></table></figure>
+
+<p>弹幕获取：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v = video.Video(<span class="string">&quot;BV1ED4y1Y7dc&quot;</span>)</span><br><span class="line">sync(ass.make_ass_file_danmakus_protobuf(obj=v, page=<span class="number">0</span>, out=<span class="string">&quot;protobuf.ass&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>获得数据后存入 .csv 文件，方便做分析。</p>
+<h2><span id="评论数据分析"><em>评论数据分析</em></span></h2><p>从接口获得评论数据 12750 条，包含 9 个字段：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;uid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b站uid&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nickname&quot;</span><span class="punctuation">:</span> <span class="string">&quot;昵称&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span> <span class="string">&quot;性别&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ip&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ip属地&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;signature&quot;</span><span class="punctuation">:</span> <span class="string">&quot;个性签名&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;blevel&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b站等级&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;reply&quot;</span><span class="punctuation">:</span> <span class="string">&quot;评论内容&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rtime&quot;</span><span class="punctuation">:</span> <span class="string">&quot;评论时间(Unix 时间戳)&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;likes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;获得赞数&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="描述性统计"><em>描述性统计</em></span></h3><h4><span id="性别分布"><em>性别分布</em></span></h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">&quot;./commentsData.csv&quot;</span>)</span><br><span class="line">genderData = df[<span class="string">&quot;gender&quot;</span>]</span><br><span class="line">genderData = genderData.dropna()</span><br><span class="line">genderCounts = genderData.value_counts()</span><br><span class="line">plt.figure(figsize=(<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line">plt.pie(</span><br><span class="line">    genderCounts,</span><br><span class="line">    labels=genderCounts.index,</span><br><span class="line">    autopct=<span class="string">&#x27;%.1f%%&#x27;</span>,</span><br><span class="line">    startangle=<span class="number">90</span>,</span><br><span class="line">    colors=[ <span class="string">&#x27;#a3d9b1&#x27;</span>, <span class="string">&#x27;#88c1d0&#x27;</span>, <span class="string">&#x27;#ffb6b9&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">plt.title(<span class="string">&#x27;性别分布饼图&#x27;</span>)</span><br><span class="line">plt.axis(<span class="string">&#x27;equal&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/09/02/project/genderPie.png" class title="性别分布饼图">
+
+<p>52.4 % 评论的用户不愿透露性别，为“保密”，33.3 % 为男性，14.3 % 为女性。</p>
+<h4><span id="ip-属地分布"><em>IP 属地分布</em></span></h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">ipData = df[<span class="string">&quot;ip&quot;</span>]</span><br><span class="line"><span class="comment"># 省份映射字典</span></span><br><span class="line">mappingDict = &#123;</span><br><span class="line">    <span class="string">&#x27;北京&#x27;</span>: <span class="string">&#x27;北京市&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;天津&#x27;</span>: <span class="string">&#x27;天津市&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;上海&#x27;</span>: <span class="string">&#x27;上海市&#x27;</span>,</span><br><span class="line">    <span class="comment"># ......</span></span><br><span class="line">&#125;</span><br><span class="line">ipData = ipData.<span class="built_in">map</span>(mappingDict)</span><br><span class="line">provinceCounts = ipData.value_counts().reset_index()</span><br><span class="line">provinceCounts.columns = [<span class="string">&quot;省份&quot;</span>, <span class="string">&quot;数量&quot;</span>]</span><br><span class="line"><span class="comment"># 省份全称到简称的映射</span></span><br><span class="line">nameMap = &#123;</span><br><span class="line">    <span class="string">&quot;北京市&quot;</span>: <span class="string">&quot;京&quot;</span>, <span class="string">&quot;天津市&quot;</span>: <span class="string">&quot;津&quot;</span>, <span class="string">&quot;河北省&quot;</span>: <span class="string">&quot;冀&quot;</span>, <span class="string">&quot;山西省&quot;</span>: <span class="string">&quot;晋&quot;</span>, <span class="string">&quot;内蒙古自治区&quot;</span>: <span class="string">&quot;蒙&quot;</span>,</span><br><span class="line">    <span class="comment"># ......</span></span><br><span class="line">&#125;</span><br><span class="line">data = <span class="built_in">list</span>(<span class="built_in">zip</span>(provinceCounts[<span class="string">&quot;省份&quot;</span>], provinceCounts[<span class="string">&quot;数量&quot;</span>]))</span><br><span class="line">heatMap = (</span><br><span class="line">    Map(init_opts=opts.InitOpts(width=<span class="string">&quot;1600px&quot;</span>, height=<span class="string">&quot;800px&quot;</span>, bg_color=<span class="string">&quot;#FFFFFF&quot;</span>))</span><br><span class="line">    .add(series_name=<span class="string">&quot;IP数量&quot;</span>, data_pair=data, maptype=<span class="string">&quot;china&quot;</span>, is_map_symbol_show=<span class="literal">False</span>, label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),zoom=<span class="number">1.2</span>,)</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        title_opts=opts.TitleOpts(title=<span class="string">&quot;IP属地分布热力图&quot;</span>, subtitle=<span class="string">&quot;数据来源: 用户评论IP统计&quot;</span>),</span><br><span class="line">        visualmap_opts=opts.VisualMapOpts(</span><br><span class="line">            min_=<span class="number">0</span>, max_=<span class="built_in">max</span>(<span class="built_in">round</span>(provinceCounts[<span class="string">&quot;数量&quot;</span>], -<span class="number">1</span>)),</span><br><span class="line">            is_piecewise=<span class="literal">False</span>, range_color=[<span class="string">&quot;#FEE1BC&quot;</span>, <span class="string">&quot;#D7562B&quot;</span>],</span><br><span class="line">            pos_top=<span class="string">&quot;60%&quot;</span>, pos_right=<span class="string">&quot;95%&quot;</span></span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">    .set_series_opts(</span><br><span class="line">        label_opts=opts.LabelOpts(</span><br><span class="line">            formatter=JsCode(</span><br><span class="line">                <span class="string">&quot;function(params) &#123; var map = %s; return map[params.name] || params.name; &#125;&quot;</span> % nameMap</span><br><span class="line">            ), font_size=<span class="number">12</span>, color=<span class="string">&quot;black&quot;</span></span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+<script src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+<script src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script>
+<div id="heatMap" style="width:100%; height:400px;"></div>
+<script>
+var chart = echarts.init(document.getElementById('heatMap'), 'white', {renderer: 'canvas'});
+var option = {"backgroundColor":"#FFFFFF","animation":true,"animationThreshold":2000,"animationDuration":1000,"animationEasing":"cubicOut","animationDelay":0,"animationDurationUpdate":300,"animationEasingUpdate":"cubicOut","animationDelayUpdate":0,"aria":{"enabled":false},"color":["#5470c6","#91cc75","#fac858","#ee6666","#73c0de","#3ba272","#fc8452","#9a60b4","#ea7ccc"],"series":[{"type":"map","name":"IP数量","label":{"show":true,"color":"black","margin":8,"fontSize":12,"formatter":function(params){var map={'北京市':'京','天津市':'津','河北省':'冀','山西省':'晋','内蒙古自治区':'蒙','辽宁省':'辽','吉林省':'吉','黑龙江省':'黑','上海市':'沪','江苏省':'苏','浙江省':'浙','安徽省':'皖','福建省':'闽','江西省':'赣','山东省':'鲁','河南省':'豫','湖北省':'鄂','湖南省':'湘','广东省':'粤','广西壮族自治区':'桂','海南省':'琼','重庆市':'渝','四川省':'川','贵州省':'黔','云南省':'滇','西藏自治区':'藏','陕西省':'陕','甘肃省':'甘','青海省':'青','宁夏回族自治区':'宁','新疆维吾尔自治区':'新','台湾省':'台','香港特别行政区':'港','澳门特别行政区':'澳'};return map[params.name]||params.name;},"valueAnimation":false},"map":"china","data":[{"name":"广东省","value":1652},{"name":"江苏省","value":802},{"name":"山东省","value":757},{"name":"河南省","value":757},{"name":"浙江省","value":732},{"name":"四川省","value":647},{"name":"北京市","value":547},{"name":"上海市","value":518},{"name":"湖北省","value":486},{"name":"安徽省","value":465},{"name":"湖南省","value":444},{"name":"河北省","value":439},{"name":"福建省","value":414},{"name":"陕西省","value":385},{"name":"江西省","value":343},{"name":"重庆市","value":299},{"name":"辽宁省","value":299},{"name":"广西壮族自治区","value":294},{"name":"山西省","value":251},{"name":"云南省","value":190},{"name":"天津市","value":190},{"name":"黑龙江省","value":179},{"name":"吉林省","value":164},{"name":"贵州省","value":160},{"name":"内蒙古自治区","value":138},{"name":"新疆维吾尔自治区","value":120},{"name":"甘肃省","value":120},{"name":"海南省","value":61},{"name":"宁夏回族自治区","value":44},{"name":"香港特别行政区","value":28},{"name":"青海省","value":21},{"name":"台湾省","value":14},{"name":"澳门特别行政区","value":8},{"name":"西藏自治区","value":8}],"roam":true,"aspectScale":0.75,"nameProperty":"name","selectedMode":false,"zoom":1.2,"zlevel":0,"z":2,"seriesLayoutBy":"column","datasetIndex":0,"mapValueCalculation":"sum","showLegendSymbol":false,"emphasis":{},"rippleEffect":{"show":true,"brushType":"stroke","scale":2.5,"period":4}}],"tooltip":{"show":true,"trigger":"item","triggerOn":"mousemove|click","axisPointer":{"type":"line"},"showContent":true,"alwaysShowContent":false,"showDelay":0,"hideDelay":100,"enterable":false,"confine":false,"appendToBody":false,"transitionDuration":0.4,"textStyle":{"fontSize":14},"borderWidth":0,"padding":5,"order":"seriesAsc"},"title":[{"show":true,"text":"IP属地分布热力图","target":"blank","subtext":"数据来源: 用户评论IP统计","subtarget":"blank","padding":5,"itemGap":10,"textAlign":"auto","textVerticalAlign":"auto","triggerEvent":false}],"visualMap":{"show":true,"type":"continuous","min":0,"max":1650,"inRange":{"color":["#FEE1BC","#D7562B"]},"calculable":true,"inverse":false,"splitNumber":5,"hoverLink":true,"orient":"vertical","top":"60%","right":"75%","padding":5,"showLabel":true,"itemWidth":20,"itemHeight":140,"borderWidth":0}};chart.setOption(option);window.addEventListener('resize', function() { chart.resize(); });
+</script>
+
+
+<p>可以发现，广东省的评论密度最大，其次是四川省、河南省和沿海省份，其余省份评论密度比较平均。</p>
+<h4><span id="b-站等级分布"><em>B 站等级分布</em></span></h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">blevelData = df[<span class="string">&quot;blevel&quot;</span>]</span><br><span class="line">blevelData = blevelData.dropna()</span><br><span class="line">blevelData = blevelData.astype(<span class="built_in">int</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line">custom_colors = [<span class="string">&#x27;#C0C0C0&#x27;</span>, <span class="string">&#x27;#C0C0C0&#x27;</span>, <span class="string">&#x27;#8CD29C&#x27;</span>, <span class="string">&#x27;#7ACDEF&#x27;</span>, <span class="string">&#x27;#FFBB8C&#x27;</span>, <span class="string">&#x27;#EE682B&#x27;</span>, <span class="string">&#x27;#FE0000&#x27;</span>]</span><br><span class="line">ax = sns.countplot(x=blevelData, order=<span class="built_in">range</span>(<span class="number">7</span>), palette=custom_colors)</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> ax.patches:</span><br><span class="line">    height = p.get_height()</span><br><span class="line">    ax.text(p.get_x() + p.get_width()/<span class="number">2.</span>, height + <span class="number">0.1</span>, <span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">int</span>(height)&#125;</span>&#x27;</span>, ha=<span class="string">&#x27;center&#x27;</span>, va=<span class="string">&#x27;bottom&#x27;</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;B站用户等级分布&#x27;</span>, fontsize=<span class="number">16</span>, fontweight=<span class="string">&#x27;bold&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;等级&#x27;</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;用户数量&#x27;</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">plt.xticks(<span class="built_in">range</span>(<span class="number">0</span>, <span class="number">7</span>))</span><br><span class="line">sns.despine()</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/09/02/project/bLevelBar.png" class title="B站用户等级分布">
+
+<p>B 站的等级分 0 到 6 级，非创作者用户的等级升级是很缓慢的，从等级分布图可以看出，评论用户 5 级及以上占了绝大多数，说明这些用户对网站的粘性很高，评论很有参考价值</p>
+<h3><span id="评论词云"><em>评论词云</em></span></h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">commentsData = df[<span class="string">&quot;reply&quot;</span>]</span><br><span class="line">commentsData = commentsData.dropna()</span><br><span class="line">commentsData = commentsData.astype(<span class="built_in">str</span>)</span><br><span class="line">text = <span class="string">&#x27;&#x27;</span>.join(commentsData.tolist())</span><br><span class="line"><span class="comment"># 中文分词</span></span><br><span class="line">words = jieba.cut(text)</span><br><span class="line"><span class="comment"># 去除停用词</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;./stopWords.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    stopWords = <span class="built_in">set</span>([line.strip() <span class="keyword">for</span> line <span class="keyword">in</span> f])</span><br><span class="line">filteredWords = [word <span class="keyword">for</span> word <span class="keyword">in</span> words <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> stopWords <span class="keyword">and</span> <span class="built_in">len</span>(word) &gt; <span class="number">1</span>]</span><br><span class="line">finalText = <span class="string">&quot; &quot;</span>.join(filteredWords)</span><br><span class="line">wc = WordCloud(font_path=<span class="string">&quot;simhei.ttf&quot;</span>, background_color=<span class="string">&quot;white&quot;</span>, width=<span class="number">800</span>, height=<span class="number">600</span>, max_words=<span class="number">500</span>, collocations=<span class="literal">False</span>)</span><br><span class="line">wc.generate(finalText)</span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">8</span>))</span><br><span class="line">plt.imshow(wc, interpolation=<span class="string">&quot;bilinear&quot;</span>)</span><br><span class="line">plt.axis(<span class="string">&quot;off&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/09/02/project/wordCloud.png" class title="评论词云">
+
+<p>词云积极评论占比约 85%，“大哭”、“意义”、“打call”和“科技”等词，很好地体现了视频的感人属性，体现了科技的意义。</p>
+<h3><span id="应用主题模型lda"><em>应用主题模型：LDA</em></span></h3><p>LDA (Latent Dirichlet Allocation，潜在狄利克雷分配) 是一种经典的非监督机器学习模型，主要用于从海量文本中自动发现隐藏的主题，其核心思想是：认为文档是由多个主题混合而成，而每个主题又是词语的概率分布。LDA 通过逆向推导，在无预设标签的情况下，自动学习出每个文档的主题构成以及每个主题下的关键词分布。</p>
+<p>对于所得的评论数据，首先应对其进行数据预处理：去除缺失值、去重，然后应用正则规则清洗文本：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">patternBiliEmo = re.<span class="built_in">compile</span>(<span class="string">r&quot;\[.*?\]&quot;</span>)     <span class="comment"># b站表情, 如 [doge]</span></span><br><span class="line">patternAt = re.<span class="built_in">compile</span>(<span class="string">r&quot;@[^\s@]+&quot;</span>)         <span class="comment"># 用户引用, 如 @蒙古上单</span></span><br><span class="line">patternSpace = re.<span class="built_in">compile</span>(<span class="string">r&#x27;\s+&#x27;</span>)           <span class="comment"># 连续空格</span></span><br><span class="line">patternUrl = re.<span class="built_in">compile</span>(<span class="string">r&#x27;http[s]?://\S+&#x27;</span>)  <span class="comment"># http(s)链接</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cleanText</span>(<span class="params">text: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    text = text.lower()                                 <span class="comment"># 转小写</span></span><br><span class="line">    text = patternAt.sub(<span class="string">&#x27;&#x27;</span>, text)</span><br><span class="line">    text = patternBiliEmo.sub(<span class="string">&#x27;&#x27;</span>, text)</span><br><span class="line">    text = emoji.replace_emoji(string=text, replace=<span class="string">&#x27;&#x27;</span>) <span class="comment"># emoji</span></span><br><span class="line">    text = patternUrl.sub(<span class="string">&#x27;&#x27;</span>, text)</span><br><span class="line">    text = patternSpace.sub(<span class="string">&#x27; &#x27;</span>, text)</span><br><span class="line">    <span class="keyword">return</span> text.strip()                                 <span class="comment"># 首尾空格</span></span><br></pre></td></tr></table></figure>
+
+<p>清洗后的数据，使用 jieba 库对其分词，去除停用词，合并近义词，得到分词结果二维数组 tokenized。</p>
+<p>LDA模型需要预先指定主题数量，但不能一拍脑袋就决定，一种常用的方法是计算不同主题数下模型的一致性(Coherence)分数，并选择分数最高时的主题数。构建词典与词袋向量，在预设的主题数范围迭代评估：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">compute_coherence</span>(<span class="params">tokenized_texts, dictionary, corpus, num_topics</span>):</span><br><span class="line">    lda = LdaModel(</span><br><span class="line">        corpus=corpus, id2word=dictionary, num_topics=num_topics,</span><br><span class="line">        alpha=<span class="number">0.1</span>, eta=<span class="number">0.01</span>, passes=<span class="number">15</span>, iterations=<span class="number">200</span>,</span><br><span class="line">        random_state=<span class="number">111</span></span><br><span class="line">    )</span><br><span class="line">    coherence_model = CoherenceModel(model=lda, texts=tokenized_texts, dictionary=dictionary, coherence=<span class="string">&quot;c_v&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> lda, coherence_model.get_coherence()</span><br><span class="line"></span><br><span class="line">dictionary = corpora.Dictionary(tokenized)</span><br><span class="line">dictionary.filter_extremes(no_below=<span class="number">5</span>, no_above=<span class="number">0.5</span>)</span><br><span class="line">corpus = [dictionary.doc2bow(text) <span class="keyword">for</span> text <span class="keyword">in</span> tokenized]</span><br><span class="line"></span><br><span class="line">topic_range = <span class="built_in">range</span>(<span class="number">2</span>, <span class="number">6</span>)  <span class="comment"># 从2到5个主题尝试</span></span><br><span class="line">results = []</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> topic_range:</span><br><span class="line">    lda_model, coherence = compute_coherence(tokenized, dictionary, corpus, k)</span><br><span class="line">    results.append((k, coherence))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot; <span class="subst">&#123;k&#125;</span> 个主题的 Coherence Score: <span class="subst">&#123;coherence:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">best_k, best_score = <span class="built_in">max</span>(results, key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;主题数为<span class="subst">&#123;best_k&#125;</span>时分数最优, Coherence Score: <span class="subst">&#123;best_score:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>运行程序得到主题数为 3 时 Coherence 分数最优：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lda = LdaModel(</span><br><span class="line">    corpus=corpus, id2word=dictionary, num_topics=<span class="number">3</span>,</span><br><span class="line">    alpha=<span class="number">0.1</span>, eta=<span class="number">0.01</span>, passes=<span class="number">15</span>, iterations=<span class="number">200</span>,</span><br><span class="line">    random_state=<span class="number">111</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印每个主题的前 5 个词</span></span><br><span class="line"><span class="keyword">for</span> i, topic <span class="keyword">in</span> lda.print_topics(num_words=<span class="number">5</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;主题 <span class="subst">&#123;i&#125;</span>: <span class="subst">&#123;topic&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主题 0: 0.144*&quot;感动&quot; + 0.085*&quot;太棒了&quot; + 0.060*&quot;希望&quot; + 0.043*&quot;开心&quot; + 0.036*&quot;震撼&quot;</span><br><span class="line">主题 1: 0.138*&quot;科技&quot; + 0.080*&quot;有温度&quot; + 0.072*&quot;有意义&quot; + 0.060*&quot;特效&quot; + 0.039*&quot;希望&quot;</span><br><span class="line">主题 2: 0.130*&quot;有意义&quot; + 0.036*&quot;音乐&quot; + 0.029*&quot;希望&quot; + 0.018*&quot;优秀&quot; + 0.014*&quot;好听&quot;</span><br></pre></td></tr></table></figure>
+
+<p>使用 pyLDAvis 可视化：</p>
+<img src="/2025/09/02/project/pyLDAvis.png" class title="主题可视化">
+
+<p>可以看到，LDA 分出了 3 个主题，可视化的 Intertopic Distance Map 显示三个边际主题分布距离远，差异大，主题区分度高，效果较好。总结 3 个主题为：观众的情感反馈、科技的温度以及内容和音乐的质量与意义。</p>
+<h2><span id="弹幕数据分析"><em>弹幕数据分析</em></span></h2><p>通过 API 获得的是 .css 格式文件，使用 pysubs2 库读取并解析，得到共 22073 条弹幕，4 个字段：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start_ms&quot;</span><span class="punctuation">:</span> <span class="string">&quot;开始时间(毫秒)&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;end_ms&quot;</span><span class="punctuation">:</span> <span class="string">&quot;结束时间(毫秒)&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lay_tag&quot;</span><span class="punctuation">:</span> <span class="string">&quot;类型标志(0为滚动弹幕, 1为固定弹幕)&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;弹幕内容&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="类型分布"><em>类型分布</em></span></h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">&quot;./danmakuData.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line">layData = df[<span class="string">&quot;lay_tag&quot;</span>]</span><br><span class="line">layCounts = layData.value_counts()</span><br><span class="line"></span><br><span class="line">layMap = &#123;<span class="number">0</span>: <span class="string">&quot;滚动弹幕&quot;</span>, <span class="number">1</span>: <span class="string">&quot;固定弹幕&quot;</span>&#125;</span><br><span class="line">layLabel = [layMap[index] <span class="keyword">for</span> index <span class="keyword">in</span> layCounts.index]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">4</span>, <span class="number">4</span>))</span><br><span class="line">plt.pie(</span><br><span class="line">    x=layCounts, labels=layLabel,</span><br><span class="line">    autopct=<span class="string">&#x27;%.1f%%&#x27;</span>, startangle=<span class="number">90</span>,</span><br><span class="line">    colors=[ <span class="string">&quot;#FB7299&quot;</span>, <span class="string">&quot;#23ADE5&quot;</span>]</span><br><span class="line">)</span><br><span class="line">plt.title(<span class="string">&#x27;弹幕类型分布饼图&#x27;</span>)</span><br><span class="line">plt.axis(<span class="string">&#x27;equal&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/09/02/project/danmakuPie.png" class title="弹幕类型分布">
+
+<p>用户更倾向于发送滚动弹幕</p>
+<h3><span id="弹幕时间线"><em>弹幕时间线</em></span></h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">&quot;./danmakuData.csv&quot;</span>)</span><br><span class="line">df[<span class="string">&quot;start_s&quot;</span>] = df[<span class="string">&quot;start_ms&quot;</span>] // <span class="number">1000</span></span><br><span class="line">df[<span class="string">&quot;time_bin&quot;</span>] = (df[<span class="string">&quot;start_s&quot;</span>] // <span class="number">30</span>) * <span class="number">30</span></span><br><span class="line">counts_30s = df.groupby(<span class="string">&quot;time_bin&quot;</span>).size()</span><br><span class="line">counts_30s = counts_30s.reindex(<span class="built_in">range</span>(<span class="built_in">int</span>(df[<span class="string">&quot;time_bin&quot;</span>].<span class="built_in">min</span>()), <span class="built_in">int</span>(df[<span class="string">&quot;time_bin&quot;</span>].<span class="built_in">max</span>())+<span class="number">30</span>, <span class="number">30</span>), fill_value=<span class="number">0</span>)</span><br><span class="line">top_hot = counts_30s.sort_values(ascending=<span class="literal">False</span>).head(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">6</span>))</span><br><span class="line">plt.plot(counts_30s.index, counts_30s.values, marker=<span class="string">&quot;o&quot;</span>, linestyle=<span class="string">&quot;-&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;时间 (秒)&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;弹幕数量&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;B站弹幕时间分布&quot;</span>)</span><br><span class="line">plt.xticks(counts_30s.index)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t, v <span class="keyword">in</span> top_hot.items():</span><br><span class="line">    plt.annotate(</span><br><span class="line">        <span class="string">f&quot;<span class="subst">&#123;v&#125;</span>&quot;</span>, xy=(t, v), xytext=(t, v + <span class="built_in">max</span>(counts_30s) // <span class="number">5</span>),</span><br><span class="line">        arrowprops=<span class="built_in">dict</span>(arrowstyle=<span class="string">&quot;-&gt;&quot;</span>, color=<span class="string">&quot;red&quot;</span>), ha=<span class="string">&quot;center&quot;</span>, color=<span class="string">&quot;red&quot;</span></span><br><span class="line">    )</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<img src="/2025/09/02/project/danmakuLine.png" class title="弹幕时间线">
+
+<p>可视化图以 30 秒为间隔，标注出了在 9:00-10:30，13:30-14:00 视频到达高潮，用户情绪到达顶峰。</p>
+<h3><span id="情感分析"><em>情感分析</em></span></h3><p>对弹幕的情感分类，首先依然是对弹幕数据进行预处理：去重、去掉无关的省流弹幕、去掉过短弹幕和正则清洗：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tsPattern = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+[：:]\d+&quot;</span>)  <span class="comment"># 时间戳, 如 &quot;跳伞8:40&quot;</span></span><br><span class="line">patternBiliEmo = re.<span class="built_in">compile</span>(<span class="string">r&quot;\[.*?\]&quot;</span>)  <span class="comment"># b站表情, 如 [doge]</span></span><br><span class="line">puncPattern = re.<span class="built_in">compile</span>(<span class="string">r&quot;[^\w\s\u4e00-\u9fa5]&quot;</span>)  <span class="comment"># 标点符号</span></span><br><span class="line">spacePattern = re.<span class="built_in">compile</span>(<span class="string">r&quot;(?&lt;=[\u4e00-\u9fa5A-Za-z0-9])\s+(?=[\u4e00-\u9fa5A-Za-z0-9])&quot;</span>)  <span class="comment"># 字间空格</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cleanRegExp</span>(<span class="params">text: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    text = tsPattern.sub(<span class="string">&quot;&quot;</span>, text)</span><br><span class="line">    text = patternBiliEmo.sub(<span class="string">&quot;&quot;</span>, text)</span><br><span class="line">    text = puncPattern.sub(<span class="string">&quot;&quot;</span>, text)</span><br><span class="line">    text = spacePattern.sub(<span class="string">&quot;&quot;</span>, text)</span><br><span class="line">    <span class="keyword">return</span> text.strip()</span><br></pre></td></tr></table></figure>
+
+<p>弹幕是典型的“短文本、口语化、情感密集”文本数据，其情感分类任务较好的方案是使用预训练模型 RoBERTa，可以视为预训练模型 BERT 的改进。</p>
+<p>从 Hugging Face 上下载专门用于中文微调的 RoBERTa 模型，对目标弹幕数据分类，并保存结果：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">MODEL_PATH = <span class="string">&quot;D:/ErlangshenModel&quot;</span>  <span class="comment"># 本地中文模型路径</span></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)</span><br><span class="line">config = AutoConfig.from_pretrained(MODEL_PATH)</span><br><span class="line"></span><br><span class="line">id2label = &#123;<span class="number">0</span>: <span class="string">&quot;negative&quot;</span>, <span class="number">1</span>: <span class="string">&quot;positive&quot;</span>&#125;  <span class="comment"># 二分类：0负面，1正面</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">normalize_label</span>(<span class="params">label_str</span>):</span><br><span class="line">    m = re.<span class="keyword">match</span>(<span class="string">r&quot;LABEL_(\d+)&quot;</span>, label_str)</span><br><span class="line">    <span class="keyword">if</span> m:</span><br><span class="line">        label_id = <span class="built_in">int</span>(m.group(<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">return</span> id2label.get(label_id, <span class="string">&quot;positive&quot;</span>)  <span class="comment"># 默认正面</span></span><br><span class="line">    low = label_str.lower()</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;neg&quot;</span> <span class="keyword">in</span> low:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;negative&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;positive&quot;</span></span><br><span class="line"></span><br><span class="line">dataset = Dataset.from_pandas(sentimentDataFrame.reset_index(drop=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">sentiment_analyzer = pipeline(</span><br><span class="line">    <span class="string">&quot;sentiment-analysis&quot;</span>,</span><br><span class="line">    model=MODEL_PATH,</span><br><span class="line">    tokenizer=tokenizer,</span><br><span class="line">    device=<span class="number">0</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> -<span class="number">1</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">results = sentiment_analyzer(</span><br><span class="line">    <span class="built_in">list</span>(dataset[<span class="string">&quot;text&quot;</span>]),</span><br><span class="line">    truncation=<span class="literal">True</span>,</span><br><span class="line">    max_length=<span class="number">128</span>,</span><br><span class="line">    batch_size=<span class="number">64</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">dataset = dataset.add_column(<span class="string">&quot;raw_label&quot;</span>, [r[<span class="string">&quot;label&quot;</span>] <span class="keyword">for</span> r <span class="keyword">in</span> results])</span><br><span class="line">dataset = dataset.add_column(<span class="string">&quot;label&quot;</span>, [normalize_label(r[<span class="string">&quot;label&quot;</span>]) <span class="keyword">for</span> r <span class="keyword">in</span> results])</span><br><span class="line">dataset = dataset.add_column(<span class="string">&quot;score&quot;</span>, [r.get(<span class="string">&quot;score&quot;</span>, <span class="literal">None</span>) <span class="keyword">for</span> r <span class="keyword">in</span> results])</span><br><span class="line"></span><br><span class="line">cn_map = &#123;<span class="string">&quot;negative&quot;</span>: <span class="string">&quot;负面&quot;</span>, <span class="string">&quot;positive&quot;</span>: <span class="string">&quot;正面&quot;</span>&#125;</span><br><span class="line">dataset = dataset.add_column(<span class="string">&quot;label_zh&quot;</span>, [cn_map.get(l, l) <span class="keyword">for</span> l <span class="keyword">in</span> dataset[<span class="string">&quot;label&quot;</span>]])</span><br><span class="line"></span><br><span class="line">sentimentDataFrame = dataset.to_pandas()</span><br><span class="line">sentimentDataFrame.to_csv(<span class="string">&quot;./danmakuSentiment_2cls.csv&quot;</span>, index=<span class="literal">False</span>, encoding=<span class="string">&quot;utf-8-sig&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果预览：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">text,raw_label,label,score,label_zh</span><br><span class="line">让每个人都能享受到科技带来的乐趣,Positive,positive,0.9999563694000244,正面</span><br><span class="line">总是发省什么流的烦不烦啊,Negative,negative,0.2995146989822388,负面</span><br><span class="line">恭喜你发现镇站之宝,Positive,positive,0.9938699007034302,正面</span><br><span class="line">币比赞多系列,Positive,positive,0.6980365633964539,正面</span><br><span class="line">无限进步,Positive,positive,0.8972111582756042,正面</span><br><span class="line">我一直不敢点开这个视频,Negative,negative,0.3999599456787109,负面</span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>模型引用：</p>
+<p>IDEA-CCNL. (2021). <em>Fengshenbang-LM</em> [GitHub]. <a target="_blank" rel="noopener" href="https://github.com/IDEA-CCNL/Fengshenbang-LM">https://github.com/IDEA-CCNL/Fengshenbang-LM</a></p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 _0xFFFF<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
