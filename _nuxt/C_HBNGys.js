@@ -1,0 +1,1 @@
+import{mt as e,v as t}from"./CaODJcyn.js";import{t as n}from"./DEi_moIk.js";import{t as r}from"./BDNMzG2s.js";var i={};function a(r,i){let a=n;return e(),t(a,{collection:`playground`})}var o=r(i,[[`render`,a]]);export{o as default};
