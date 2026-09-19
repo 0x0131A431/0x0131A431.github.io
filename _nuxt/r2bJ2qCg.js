@@ -1,1 +1,0 @@
-import{mt as e,v as t}from"./CaODJcyn.js";import{t as n}from"./D0eoSqtJ.js";import{t as r}from"./BDNMzG2s.js";var i={};function a(r,i){let a=n;return e(),t(a,{collection:`observations`})}var o=r(i,[[`render`,a]]);export{o as default};
